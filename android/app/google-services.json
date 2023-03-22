@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "642810436386",
+    "firebase_url": "https://tarantulaapp-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "tarantulaapp",
+    "storage_bucket": "tarantulaapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:642810436386:android:026022e062898334f9a37b",
+        "android_client_info": {
+          "package_name": "com.example.untitled4"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "642810436386-h9d349a6pv32279hfgtci2lgtsesjufi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6dspGtDPkXlbmh6AT-E8kslPPmmN7EO0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "642810436386-h9d349a6pv32279hfgtci2lgtsesjufi.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "642810436386-l47iaqactcdt2isfqh3kvdsmn11fq2od.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.untitled4"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
