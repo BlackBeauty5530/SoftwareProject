@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'Login/login.dart';
-import 'controller/controller.dart';
+import 'package:untitled4/views/Welcome/splashview.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async{
@@ -16,15 +15,18 @@ Future<void> main() async{
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Robot Controller',
+      title: 'Spider Robot Application',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        //primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: Colors.transparent,
       ),
-      home: const MyHomePage(title: 'Login Page',),
+      home: const SplashView(),
     );
   }
 }
+
