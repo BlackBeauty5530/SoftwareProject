@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
+import 'package:flutter_vibrate/flutter_vibrate.dart';
 
 class ControllerPage extends StatefulWidget {
   const ControllerPage({super.key});
@@ -9,145 +11,170 @@ class ControllerPage extends StatefulWidget {
 
 class _ControllerPageState extends State<ControllerPage> {
   String text = 'Waiting Command';
+  int rotationAngleFactor = 0;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Material App Bar'),
-        leading: IconButton(
-          onPressed: () {
-            //TODO: implement logout function
-          },
-          icon: const Icon(
-            Icons.logout,
-          ),
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topRight,
+          end: Alignment.bottomLeft,
+          colors: [
+            Colors.blue,
+            Colors.red,
+          ],
         ),
-        actions: [
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    showDialog<void>(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: const Text('Robot Info'),
-                          content: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: const <Widget>[
-                              Text('Tarantula Robot'),
-                              Text('Version 1.0'),
-                            ],
-                          ),
-                          actions: <Widget>[
-                            TextButton(
-                              child: const Text('Done'),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  },
-                  icon: const Icon(
-                    Icons.info_outline,
-                  ),
-                ),
-              ],
-            ),
-          )
-        ],
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-            child: Text(
-              text,
-              style: const TextStyle(
-                fontSize: 24,
-              ),
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Material App Bar'),
+          leading: IconButton(
+            onPressed: () {
+              //TODO: implement logout function
+            },
+            icon: const Icon(
+              Icons.logout,
             ),
           ),
-          Container(
-            alignment: Alignment.bottomCenter,
-            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-            child: Container(
-              height: 250,
-              width: 250,
-              padding: const EdgeInsets.all(2),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(120),
-              ),
-              child: Stack(
+          actions: [
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  _ControllerButton(
-                    alignment: Alignment.centerLeft,
-                    iconData: Icons.keyboard_arrow_left_outlined,
-                    onTapDownEvent: () {
-                      setState(() {
-                        text = 'Moving Left';
-                      });
+                  IconButton(
+                    onPressed: () {
+                      showDialog<void>(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text('Robot Info'),
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: const <Widget>[
+                                Text('Tarantula Robot'),
+                                Text('Version 1.0'),
+                              ],
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                child: const Text('Done'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
                     },
-                    onTapUpEvent: () {
-                      setState(() {
-                        text = 'Waiting Command';
-                      });
-                    },
-                  ),
-                  _ControllerButton(
-                    alignment: Alignment.centerRight,
-                    iconData: Icons.keyboard_arrow_right_outlined,
-                    onTapDownEvent: () {
-                      setState(() {
-                        text = 'Moving Right';
-                      });
-                    },
-                    onTapUpEvent: () {
-                      setState(() {
-                        text = 'Waiting Command';
-                      });
-                    },
-                  ),
-                  _ControllerButton(
-                    alignment: Alignment.topCenter,
-                    iconData: Icons.keyboard_arrow_up_outlined,
-                    onTapDownEvent: () {
-                      setState(() {
-                        text = 'Moving Forward';
-                      });
-                    },
-                    onTapUpEvent: () {
-                      setState(() {
-                        text = 'Waiting Command';
-                      });
-                    },
-                  ),
-                  _ControllerButton(
-                    alignment: Alignment.bottomCenter,
-                    iconData: Icons.keyboard_arrow_down_outlined,
-                    onTapDownEvent: () {
-                      setState(() {
-                        text = 'Moving Backward';
-                      });
-                    },
-                    onTapUpEvent: () {
-                      setState(() {
-                        text = 'Waiting Command';
-                      });
-                    },
+                    icon: const Icon(
+                      Icons.info_outline,
+                    ),
                   ),
                 ],
               ),
+            )
+          ],
+        ),
+        backgroundColor: Colors.transparent,
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+              child: Text(
+                text,
+                style: const TextStyle(
+                  fontSize: 24,
+                ),
+              ),
             ),
-          ),
-        ],
+            Transform.rotate(
+              angle: pi * (rotationAngleFactor / 2),
+              child: Image.asset(
+                'assets/icons/SpiderIcon.png',
+              ),
+            ),
+            Container(
+              alignment: Alignment.bottomCenter,
+              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+              child: Container(
+                height: 250,
+                width: 250,
+                padding: const EdgeInsets.all(2),
+                child: Stack(
+                  children: [
+                    _ControllerButton(
+                      alignment: Alignment.centerLeft,
+                      iconData: Icons.keyboard_arrow_left_outlined,
+                      onTapDownEvent: () async {
+                        setState(() {
+                          rotationAngleFactor = 3;
+                          text = 'Moving Left';
+                        });
+                      },
+                      onTapUpEvent: () {
+                        setState(() {
+                          rotationAngleFactor = 0;
+                          text = 'Waiting Command';
+                        });
+                      },
+                    ),
+                    _ControllerButton(
+                      alignment: Alignment.centerRight,
+                      iconData: Icons.keyboard_arrow_right_outlined,
+                      onTapDownEvent: () {
+                        setState(() {
+                          rotationAngleFactor = 1;
+                          text = 'Moving Right';
+                        });
+                      },
+                      onTapUpEvent: () {
+                        setState(() {
+                          rotationAngleFactor = 0;
+                          text = 'Waiting Command';
+                        });
+                      },
+                    ),
+                    _ControllerButton(
+                      alignment: Alignment.topCenter,
+                      iconData: Icons.keyboard_arrow_up_outlined,
+                      onTapDownEvent: () {
+                        setState(() {
+                          rotationAngleFactor = 4;
+                          text = 'Moving Forward';
+                        });
+                      },
+                      onTapUpEvent: () {
+                        setState(() {
+                          rotationAngleFactor = 0;
+                          text = 'Waiting Command';
+                        });
+                      },
+                    ),
+                    _ControllerButton(
+                      alignment: Alignment.bottomCenter,
+                      iconData: Icons.keyboard_arrow_down_outlined,
+                      onTapDownEvent: () {
+                        setState(() {
+                          rotationAngleFactor = 2;
+                          text = 'Moving Backward';
+                        });
+                      },
+                      onTapUpEvent: () {
+                        setState(() {
+                          rotationAngleFactor = 0;
+                          text = 'Waiting Command';
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -171,18 +198,21 @@ class _ControllerButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Align(
       alignment: alignment,
-      child: Container(
+      child: Ink(
         height: 100,
         width: 100,
         decoration: BoxDecoration(
-          color: Colors.grey,
+          color: Colors.blue,
           borderRadius: BorderRadius.circular(120),
         ),
-        child: GestureDetector(
+        child: InkWell(
+          borderRadius: BorderRadius.circular(120),
+          splashColor: Colors.red,
           onTapUp: (details) {
             onTapUpEvent();
           },
           onTapDown: (details) {
+            Vibrate.feedback(FeedbackType.heavy);
             onTapDownEvent();
           },
           onTapCancel: () {
