@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:untitled4/views/Signup/signup.page.dart';
-
 import '../../../controller/controller.dart';
 
 final ButtonStyle flatButtonStyle = TextButton.styleFrom(
